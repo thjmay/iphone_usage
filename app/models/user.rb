@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+	has_many :events
 	before_save { self.distinct_id = distinct_id.upcase }
 	validates :distinct_id, presence: true, uniqueness: {case_sensitive: false}
 	validates :sk_user_id, presence: true

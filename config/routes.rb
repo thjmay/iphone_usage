@@ -1,4 +1,5 @@
 IphoneUsage::Application.routes.draw do
+  get "events/new"
   get "users/new"
   root  'static_pages#home'
   # The priority is based upon order of creation: first created -> highest priority.
