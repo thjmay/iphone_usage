@@ -100,7 +100,29 @@ data.each do |hash|
 	app_version = properties['$app_version']
 	sk_user_id = properties['user_id']
 	wifi = properties['$wifi']
-	time = properties['time']
+	time_int = properties['time']
+	time = Time.at(time_int)
+	if properties.has_key?('SK_event_id')
+		sk_event_id = properties['SK_event_id']
+	else
+		sk_event_id = properties['event_id']
+	end
+	if properties.has_key?('SK_ticketed_event')
+		sk_ticketed_event = properties['SK_ticketed_event']
+		if sk_ticketed_event == "true"
+			sk_ticketed_event = 1
+		elsif sk_ticketed_event == "false"
+			sk_ticketed_event = 0
+		end
+	else
+		sk_ticketed_event = properties['SK_ticketed']
+		if sk_ticketed_event == true
+			sk_ticketed_event = 1
+		elsif sk_ticketed_event == false
+			sk_ticketed_event = 0
+		end
+	end
+			
 
 	#Update users hash
 	if users.has_key?(distinct_id)
@@ -148,13 +170,15 @@ data.each do |hash|
 	#Update events array
 	event_hash = Hash.new
 	event_hash[:name] = event
-	if wifi == "true"
+	if wifi == true
 		event_hash[:wifi] = 1
 	else
 		event_hash[:wifi] = 0
 	end
 	event_hash[:distinct_id] = distinct_id
 	event_hash[:time] = time
+	event_hash[:sk_event_id] = sk_event_id
+	event_hash[:sk_ticketed_event] = sk_ticketed_event
 	events.push(event_hash)
 
 end
