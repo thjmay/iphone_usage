@@ -137,6 +137,9 @@ data.each do |hash|
 		elsif (full_user == 1 && logged_in == "false")
 			user[:full_user] = 0
 		end
+		if event == 'application - new_install_tracking_LDN'
+			user[:install_time] = time
+		end
 		if (user[:sk_user_id].nil? && properties.has_key?('user_id'))
 			user[:sk_user_id] = sk_user_id
 		end
@@ -152,6 +155,9 @@ data.each do |hash|
 		else
 			transactions = 0
 		end
+		if event == 'application - new_install_tracking_LDN'
+			install_time = time
+		end
 		if logged_in == "true"
 			full_user = 1
 		else
@@ -163,6 +169,7 @@ data.each do |hash|
 		user[:full_user] = full_user
 		user[:sk_user_id] = sk_user_id
 		user[:app_version] = app_version
+		user[:install_time] = install_time
 		users[distinct_id] = user
 
 	end

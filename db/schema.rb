@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140227164613) do
+ActiveRecord::Schema.define(version: 20140228100242) do
 
   create_table "events", force: true do |t|
     t.string   "name"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20140227164613) do
     t.string   "app_version"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "install_time"
   end
 
   add_index "users", ["distinct_id"], name: "index_users_on_distinct_id", unique: true
